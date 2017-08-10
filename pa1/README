@@ -1,0 +1,16 @@
+Sharad Shrestha
+1439935
+CMPS 101
+PA1
+07/05/2017
+
+
+List.java ----- Abstract data type implemented as a doubly linked data structure
+
+ListClient.java ----- Tests functions of the List. This file is provided by instructor.
+
+Lex.java ----- It uses list to sort an input file into lexicographic order and returns it in the form of a text file.
+
+Makefile ----- Creates an executable jar file. It compiles, clean, and submit files. This file is provided by instructor.
+
+README ----- Brief description of each files' role in the project (table of content).
