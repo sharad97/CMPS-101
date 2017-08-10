@@ -1,0 +1,18 @@
+//---------------------------//
+//Sharad Shrestha            //
+//sshrest3                   //
+//CMPS 101                   //
+//Programming Assignment 2   //
+//---------------------------//
+
+List.c ----- Abstract data type implemented as a doubly linked data structure.
+	
+List.h ----- Header file for List ADT. It declares the functions which will be implemented in List.c
+	
+ListClient.c ----- Tests functions of the List. This file is provided by instructor.
+	
+Lex.c ----- It uses list to sort an input file into lexicographic order and returns it in the form of a text file.
+	
+Makefile ----- Creates an executable Lex file. It compiles *c files which are listed above, clean, and submit files. This file is provided by instructor.
+
+README ----- Brief description of each files' role in the project (table of content).
