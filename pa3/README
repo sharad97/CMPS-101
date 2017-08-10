@@ -1,0 +1,53 @@
+//*********************************//
+//Sharad Shrestha                  //
+//SID: sshrest3                    //
+//CMPS 101                         //
+//Patrick Tantalo                  //
+//Programming Assignment 3         //
+//*********************************//
+
+==========================================================================================================
+
+List.java:
+
+Abstract data type implemented as a doubly linked data structure. 
+It is used by Matrix.java to create list array.
+
+==========================================================================================================
+
+ListTest.java
+
+Tests functions of the List ADT.
+
+==========================================================================================================
+
+Matrix.java
+
+Abstract data type implemented as an array of lists. It uses List ADT for Sparse.
+
+==========================================================================================================
+
+MatrixTest.java
+
+Tests functions of the Matrix ADT.
+
+==========================================================================================================
+
+Sparse.java
+
+It reads in two matrices from a file, performs several arithmetic operations on them, 
+then writes the results to another file.
+
+==========================================================================================================
+
+Makefile
+
+Creates an executable jar file. It compiles, clean, and submit files. 
+
+==========================================================================================================
+
+README
+
+Brief description of each files' role in the project (table of content).
+
+==========================================================================================================
