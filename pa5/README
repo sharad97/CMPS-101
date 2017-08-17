@@ -1,0 +1,61 @@
+//---------------------------//
+//Sharad Shrestha            //
+//sshrest3                   //
+//CMPS 101                   //
+//Patrick Tantalo            //
+//Programming Assignment 5   //
+//---------------------------//
+
+==========================================================================================================
+
+List.c:
+
+Contains abstract data type implemented as a doubly linked data structure and its functions.
+
+==========================================================================================================
+
+List.h
+
+Header file for List.c
+
+==========================================================================================================
+
+Graph.c
+
+Implementation file for the Graph ADT which contains adjacency list and other fields.
+Also BFS algorithm which will find the shortest paths tree given a source.
+
+==========================================================================================================
+
+
+Graph.h
+
+Header file for Graph.c
+
+==========================================================================================================
+
+
+GraphTest.c
+
+Runs and tests Graph.c
+
+==========================================================================================================
+
+FindComponents.c
+
+It is main client for the Graph ADT. 
+It runs DFS and uses Graph.c to find the the strongly connected components of a graph. 
+
+==========================================================================================================
+
+Makefile
+
+Creates an executable jar file. It compiles, clean, and submit files. 
+
+==========================================================================================================
+
+README
+
+Brief description of each files' role in the project (table of content).
+
+==========================================================================================================
