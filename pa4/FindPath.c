@@ -14,6 +14,7 @@
 #define MAX_LEN 160
 
 int main(int argc, char* argv[]){
+	
     if(argc != 3){
         printf("Usage: %s <input file> <output file>\n", argv[0]);
         exit(1);
@@ -37,16 +38,19 @@ int main(int argc, char* argv[]){
     char line[MAX_LEN];
     fgets(line, MAX_LEN, in);
     
-    int V; 
-    sscanf(line, "%d", &V);
-    Graph G = newGraph(V);
+    int numV; 
+    sscanf(line, "%d", &numV);
+    Graph G = newGraph(numV);
 	
 	// fills graph
     int x, y;
     while(fgets(line, MAX_LEN, in) != NULL){
         sscanf(line, "%d %d", &x, &y);
-        if(x == 0 && y == 0) break;
-        addEdge(G, x, y);
+        if(x == 0 && y == 0){
+			break;
+		}else{
+			addEdge(G, x, y);
+		}
     }
     
 	// prints graph
@@ -55,22 +59,26 @@ int main(int argc, char* argv[]){
 	// prints paths
 	List L = newList();
     while(fgets(line, MAX_LEN, in) != NULL){
-        int s, d;
-        sscanf(line, "%d %d", &s, &d);
-        if(s == 0 && d == 0) break;
-        BFS(G, s);
-        getPath(L, G, d);
-        if (getDist(G, d) == -1){
-            fprintf(out, "The distance from %d to %d is infinity \n", s, d);
-            fprintf(out, "No %d-%d path exists\n", s, d);
-        }else{
-            fprintf(out, "The distance from %d to %d is %d \n", s, d, getDist(G, d));
-            fprintf(out, "A shortest %d-%d path is: ", s, d);
-            printList(out, L);
-            fprintf(out, "\n");
-        }
-        clear(L);
+        int sc, dc;
+        sscanf(line, "%d %d", &sc, &dc);
+        if(sc == 0 && dc == 0){
+			break;
+		}else{
+			BFS(G, sc);
+			getPath(L, G, dc);
+			if(getDist(G, dc) != -1){
+				fprintf(out, "The distance from %d to %d is %d \n", sc, dc, getDist(G, dc));
+				fprintf(out, "A shortest %d-%d path is: ", sc, dc);
+				printList(out, L);
+				fprintf(out, "\n");
+			}else{
+				fprintf(out, "The distance from %d to %d is infinity \n", sc, dc);
+				fprintf(out, "No %d-%d path exists \n", sc, dc);
+			}
+			clear(L);
+		}
     }
+
 	
 	// free memory
     freeGraph(&G);

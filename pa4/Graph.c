@@ -13,6 +13,7 @@
 
 //----------------------------Exported type-------------------------------//
 
+
 // private GraphObj type
 // creats graph struct
 typedef struct GraphObj{
@@ -27,6 +28,7 @@ typedef struct GraphObj{
 
 
 //--------------------------Constructors-Destructors-----------------------//
+
 
 // newGraph()
 // returns a Graph reference to new empty Graph object.
@@ -65,6 +67,7 @@ void freeGraph(Graph* pG){
 
 
 //---------------------------------Access functions------------------------//
+
 
 // getOrder()
 // returns order.
@@ -105,7 +108,7 @@ int getParent(Graph G, int u){
     if(G == NULL){
         printf("Graph Error: getParent() called on NULL Graph reference\n");
         exit(1);
-    } else if(u<1 || u>getOrder(G)){
+    }else if(u<1 || u>getOrder(G)){
         printf("Graph Error: getParent() called without of bounds value'u'\n");
         exit(1);
     }else{
@@ -119,7 +122,7 @@ int getDist(Graph G, int u){
     if(G == NULL){
         printf("Graph Error: getDist() called on NULL Graph reference\n");
         exit(1);
-    } else if(u<1 || u>getOrder(G)){
+    }else if(u<1 || u>getOrder(G)){
         printf("Graph Error: getDist() called without of bounds value 'u'\n");
         exit(1);
     }else{
@@ -133,7 +136,7 @@ void getPath(List L, Graph G, int u){
     if(G->source == NIL){
         printf("Graph Error: getPath() called before BFS\n");
         exit (1);
-    }else if (u < 1 || u >getOrder(G)){
+    }else if(u < 1 || u >getOrder(G)){
         printf("Graph Error: getPath() called without of bounds value 'u'\n");
         exit(1);
     }else if( u == G->source){
@@ -177,7 +180,7 @@ void addEdge(Graph G, int u, int v){
         printf("Graph Error: addEdge() called without of bounds value 'v'\n");
         exit(1);
     }else{
-        addArc(G, u, v);
+		addArc(G, u, v);
         addArc(G, v, u);
     }
     G->size--;
@@ -186,7 +189,6 @@ void addEdge(Graph G, int u, int v){
 // addArc()
 // inserts directed edge to graph G from u to v
 void addArc(Graph G, int u, int v){
-    int x;
     List L = G->adj[u];
     if(G == NULL){
         printf("Graph Error: addArc() called on NULL Graph reference\n");
@@ -200,20 +202,15 @@ void addArc(Graph G, int u, int v){
     }else if(length(L) == 0){
         append(L, v);
     }else{
-        moveFront(L);
-        while(index(L) >= 0){
-            x = get(L);
-            if(v < x){
+       for(moveFront(L); index(L) >= 0; moveNext(L)){
+            if(v < get(L)){
                 insertBefore(L, v);
-                moveBack(L);
+				return;
             }
-			moveNext(L);
-        }
-        if(v > x && index(L) == -1){
-            append(L, v);
-        }
+		}
+		append(L, v);	
     }
-    G->size++;
+	G->size++;
 }
 
 // BFS()
@@ -226,38 +223,36 @@ void BFS(Graph G, int s){
     }else if(s<1 || s>getOrder(G)){
         printf("Graph Error: BFS() called without of bounds value 's'\n");
         exit(1);
-    }
-    G->source = s;
-    for(int i = 1; i <= G->order; i++){
-        G->color[i] 	= 0; // white
-        G->distance[i] 	= INF;
-        G->parent[i] 	= NIL;
-    }
-    G->source = s; 
-    G->color[s] = 1; // gray 
-    G->distance[s] = 0;
-    G->parent[s] = NIL;
-    List Q = newList();
-    append(Q, s);
-    moveFront(Q);
-    while(index(Q)>=0){
-        int x = get(Q);
-        List L = G->adj[x];
-        moveFront(L);
-        while(index(L)>=0){
-            int y = get(L);
-            if(G->color[y] == 0){ // white
-                G->color[y] = 1; // gray
-                G->distance[y] = G->distance[x]+1;
-                G->parent[y] = x;
-                append(Q, y);
-            }
-            moveNext(L);
-        }
-        G->color[x] = 2; // black
-        moveNext(Q);
-    }
-    freeList(&Q);
+    }else{
+		for(int i = 1; i <= G->order; i++){
+			G->parent[i] 	= NIL;
+			G->color[i] 	= 0; // white
+			G->distance[i] 	= INF;
+		}
+		G->source = s; 
+		G->distance[s] = 0;
+		G->color[s] = 1; // gray 
+		G->parent[s] = NIL;
+		List t = newList();
+		append(t, s);
+		for(moveFront(t); index(t) >= 0; moveNext(t)){
+			int x = get(t);
+			List L = G->adj[x];
+			moveFront(L);
+			while(index(L)>=0){
+				int y = get(L);
+				if(G->color[y] == 0){ // white
+					G->distance[y] = G->distance[x]+1;
+					G->color[y] = 1; // gray
+					G->parent[y] = x;
+					append(t, y);
+				}
+				moveNext(L);
+			}
+			G->color[x] = 2; // black
+		}
+		freeList(&t);
+	}
 }
 
 
@@ -267,12 +262,12 @@ void BFS(Graph G, int s){
 // printGraph()
 // prints the graph adjacency list.
 void printGraph(FILE* out, Graph G){
-    if(out == NULL){
-        printf("Graph Error: cannot print to NULL file pointer");
-        return;
-    }else if(G == NULL){
-        printf("Graph Error: cannot print NULL Graph pointer");
-        return;
+	if(G == NULL){
+		printf("Graph Error: pringGraph() called on NULL Graph reference\n");
+		exit(1);
+	}else if(out == NULL){
+		printf("Graph Error: pringGraph() called on NULL file reference\n");
+		exit(1);
     }else{
         for(int i = 1; i <= G->order; i++){
             fprintf(out,"%d:",i);
